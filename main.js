@@ -28,18 +28,19 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 scene.add(moon);
 
 const pointLight = new THREE.PointLight(0xffffff);
-pointLight.position.set(50, 50, 50);
+pointLight.position.set(100, 100, 100);
 scene.add(pointLight);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.minDistance = 20;
-controls.maxDistance = 50;
+controls.maxDistance = 70;
+controls.enablePan = false;
 
 const spaceTexture = new THREE.TextureLoader().load("space.jpg");
 scene.background = spaceTexture;
 
-const amount = 100000;
-const radius = 300;
+const amount = 25000;
+const radius = 250;
 
 const positions = new Float32Array(amount * 3);
 const colors = new Float32Array(amount * 3);
@@ -56,7 +57,13 @@ for (let i = 0; i < amount; i++) {
 
   color.toArray(colors, i * 3);
 
-  sizes[i] = 2;
+  if (i % 2 == 0) {
+    sizes[i] = 2;
+  } else if (i % 3 == 0) {
+    sizes[i] = 3;
+  } else {
+    sizes[i] = 4;
+  }
 }
 
 const geometry = new THREE.BufferGeometry();
@@ -85,7 +92,7 @@ const material = new THREE.ShaderMaterial({
 
 const sphere = new THREE.Points(geometry, material);
 scene.add(sphere);
-let sizeCount = 0;
+
 function animate() {
   requestAnimationFrame(animate);
 

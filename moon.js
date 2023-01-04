@@ -6,6 +6,7 @@ const bumpTexture = new THREE.TextureLoader().load("normal.jpg");
 const material = new THREE.MeshStandardMaterial({
   map: torusTexture,
   normalMap: bumpTexture,
+  transparent: false,
 });
 
 //this is the actual object displayed on the screen
